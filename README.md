@@ -18,7 +18,7 @@ index.php -> controllers/* -> models/*
  ```php
 "/guilds$/" => "handleDefaultRequest"
  ```
- - If it is found, the controller hands off control to the specified callback function - and splits and url params into arguments passed into the callback.
+ - If it is found, the controller hands off control to the specified callback function - and splits any url params into arguments passed into the callback.
 ```php
     static function handleDefaultRequest()
     {
