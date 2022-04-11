@@ -1,0 +1,10 @@
+<?php
+
+define('AUTH_USER', 'xxx');
+define("AUTH_PASS", "xxx");
+
+define("DB_HOSTNAME", "xxx");
+define("DB_USERNAME", "xxx");
+define("DB_PASSWORD", "xxx");
+define("DB_DBNAME",   "xxx");
+?>
