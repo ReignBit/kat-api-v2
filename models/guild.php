@@ -18,13 +18,7 @@ class Guild extends Model
 
     static function all()
     {
-
-        $result = static::fetchAll();
-        $guilds = array();
-        foreach ($result as $sql) {
-            array_push($guilds, new Guild($sql));
-        }
-        return $guilds;
+        return array_map(fn ($sql) => new Guild($sql), static::fetchAll());
     }
 
     static function get($id)
