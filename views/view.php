@@ -1,5 +1,4 @@
 <?php
-
 /*
             VIEW.PHP
     Base view for all interactions with the API.
@@ -40,7 +39,26 @@ class GuildsView            // (/guilds)
         return array("msg" => "500 - Internal Server Error");
     }
 }
-
 */
+
+class View
+{
+    static function getFunc($ctx)
+    {
+        if (method_exists($ctx->view, strtolower($ctx->method)))
+        {
+            return call_user_func(array($ctx->view, strtolower($ctx->method)), $ctx, ...$ctx->params);
+        }
+        return error_405($ctx->method);
+    }
+
+    static function handle($ctx)
+    {
+        return static::getFunc($ctx);
+    }
+
+    // Generics
+
+}
 
 ?>

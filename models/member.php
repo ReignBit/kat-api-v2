@@ -20,19 +20,13 @@ class Member extends Model
     static function all($gid)
     {
 
-        $result = static::fetchAllWhere("gid", $gid);
-        $objs = array();
-        foreach ($result as $sql) {
-            array_push($objs, new Member($sql));
-        }
-        return $objs;
+        return array_map(fn ($sql) => new Member($sql), static::fetchAll());
+
     }
 
     static function get($gid, $uuid)
     {
-        $result = static::fetchWhere("uuid",$uuid);
-        $obj = new Member($result);
-        return $obj;
+        return new Member(static::fetchWhere("uuid",$uuid));
     }
 }
 

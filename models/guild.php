@@ -23,11 +23,7 @@ class Guild extends Model
 
     static function get($id)
     {
-
-        $result = static::fetch("id", $id);
-        
-        $obj = new Guild($result);
-        return $obj;
+        return new Guild(static::fetch("id", $id));
     }
 
     static function create($id, $prefix)

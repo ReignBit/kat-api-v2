@@ -1,40 +1,28 @@
 <?php
+include_once("views/view.php");
+include_once("views/guilds/guilds.php");
+include_once("views/guilds/guild.php");
 
 include_once("controllers/base.php");
 
-include_once("models/guild.php");
-include_once("models/member.php");
+
+
+include_once("middleware/headerAuth.php");
+include_once("middleware/base.php");
 
 class GuildController extends BaseController
 {
+    // Mapping of url paths to Views
     public static $endpoints = array(
-            "/guilds$/" => "handleDefaultRequest",                                                              // guilds
-            "/guilds\/\d{18}$/" => "handleRequestGuildSingle",                                                  // guilds/123456789012345678
-            "/guilds\/\d{18}\/members$/" => "handleRequestGuildMemberAll",                                      // guilds/123456789012345678/members
-            "/guilds\/\d{18}\/members\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/" => "handleRequestGuildMemberSingle"    // guilds/123456789012345678/members/10b7a335-b9de-11ec-8b24-107b44a150b7
+            "/guilds$/" => "GuildsView",                                                          // guilds
+            "/guilds\/\d{18}$/" => "GuildView",                                                  // guilds/123456789012345678
+            "/guilds\/\d{18}\/members$/" => "View",                                  // guilds/123456789012345678/members
+            "/guilds\/\d{18}\/members\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/" => "View"    // guilds/123456789012345678/members/10b7a335-b9de-11ec-8b24-107b44a150b7
         );
 
-    static function handleDefaultRequest()
-    {
-        return Guild::all();
-    }
-
-    static function handleRequestGuildSingle($id)
-    {
-        return Guild::get($id);
-    }
-    
-    static function handleRequestGuildMemberAll($gid)
-    {
-        return Member::all($gid);
-    }
-
-    static function handleRequestGuildMemberSingle($gid, $uuid)
-    {
-        return Member::get($gid, $uuid);
-    }
+    public static $middleware = array(
+    );
 
     
 }
-
 ?>

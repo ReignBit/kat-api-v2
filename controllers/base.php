@@ -1,9 +1,28 @@
 <?php
+include_once("utils/context.php");
+include_once("middleware/base.php");
+
+include_once("utils/errors.php");
 
 class BaseController
 {
+    /*
+        endpoints:
+            A map of url endpoints => View
+    */
     public static $endpoints = array();
-    static function handleRequest($method, $args)
+
+    /*
+        middleware:
+            An array of Middlewares to be ran in order,
+            an example of a middleware would be an AuthMiddleware that
+            prevents unauthed access to ALL views in a controller.
+    */
+    public static $middleware = array(
+    );
+
+
+    static function handleRequest($method, $args, $controller)
     {
         foreach (static::$endpoints as $pattern => $callback) {
             if (preg_match($pattern, $args))
@@ -23,12 +42,18 @@ class BaseController
                     }
                 }
                 
-                // We have a valid url path, let's hand it off to the method responsible
-                return call_user_func_array(array("GuildController", $callback), $url_params);  
+                // We have a valid url path, let's hand it off to the controller/middleware stack responsible
+                // $controller: ->BaseController
+                // $callback  : -> View
+                // $method    : HTTP Method
+                // $url_params: regex'd variables from url
+                $ctx = new Context($controller, $callback, $method, $url_params, static::$middleware); 
+
+                return call_user_func(array(static::$middleware[0], "handleMiddlewareRequest"), $ctx);  
             }
         }
 
-        return array("msg"=> "404 route not found.");
+        return error_404();
     }
 }
 
