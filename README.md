@@ -100,21 +100,28 @@ Simple add a new middleware in `middleware/`, this example will ensure the heade
 
 ```php
 <?php
+// These must be present
 include_once("middleware/base.php");
 include_once("utils/errors.php");
 
+// Must extend from BaseMiddleware
 class HeaderAuthMiddleware extends BaseMiddleware
 {
+    // Entrypoint to the middleware
     static function handle($ctx)
     {
-
+        // Custom logic 
         if (array_key_exists('Authorization', getallheaders()))
         {
             if (getallheaders()['Authorization'] == "Hello")
             {
+                // To continue with the request, this must be called and returned.
                 return static::next($ctx);
             }
         }
+        // To abort the request, return custom data/errors or
+        // use the generic error_ functions found in `utils/errors.php`.
+        // If using custom errors, ensure http_response_code(x) is called before returning.
         return error_401();
     }
 }
