@@ -2,39 +2,22 @@
 Complete rewrite of the v1 api, built in PHP and RESTful principles.
 Uses routing and controllers to help modularize the code.
 
-## Current flow
-index.php -> controllers/* -> middleware/* -> views/* -> models/*
-
- - apache redirects any request to `index.php?q=<URL>`
- - initial request to index.php
- - Reference the `$routes` table in `routes.php` to look for a valid base route into the api.
- ```php
- $routes = array(
-    "guilds" => "GuildController"
- );
- ```
- - Hand off handling to the specified controller, with the `handleRequest` entrypoint.
- - Controller then loops through a list of regex endpoints to find the requested url.
- ```php
-"/guilds$/" => "handleDefaultRequest"
- ```
- - If it is found, the controller hands off control to the specified callback function - and splits any url params into arguments passed into the callback.
-```php
-    static function handleDefaultRequest()
-    {
-        return Guild::all();
-    }
-```
- - Callback funtion returns a json_encode-able object ready to be sent as response
-
- ## TODO
+## TODO
  - Implement Auth
  - FetchOr404 / Error handling in general
  - Permission endpoints
  - Allow creation/deletion/modification of data (currently only GET)
  - Views / Multiple methods [x]
 
+---
+
 ## Guide
+> A brief explaination of how a request is processed:
+> - First the "root endpoint" is compared against the routing table in `routes.php`
+> - If a valid route is found, the `Controller` responsible is called and looks for a valid endpoint.
+> - If a valid endpoint is found in the Controller, a Context object is created and any Middleware specified in the Controller is executed in reverse order.
+> - If all middleware pass then execution is passed to the endpoint's View class. (specified in the Controller).
+>- The view executes and returns a JSON object for response back to the client.
 
 ### How to add a new endpoint?
 For this example, we will add `/example` to the API.
@@ -109,6 +92,8 @@ Now, if we visit our new endpoint we will receive something like this:
 ```
 Congratulations! you just added a new endpoint to the api.
 To add middleware, simply add the name of the middleware class to `$middleware` in the Controller. For example, we can add `"HeaderAuthMiddleware"` to only accept the request if there is an Authorization header present in the request.
+
+---
 
 ### How to create new middleware?
 Simple add a new middleware in `middleware/`, this example will ensure the header `"Authorization: Hello"` is present.
