@@ -3,7 +3,7 @@ Complete rewrite of the v1 api, built in PHP and RESTful principles.
 Uses routing and controllers to help modularize the code.
 
 ## Current flow
-index.php -> controllers/* -> models/*
+index.php -> controllers/* -> middleware/* -> views/* -> models/*
 
  - apache redirects any request to `index.php?q=<URL>`
  - initial request to index.php
