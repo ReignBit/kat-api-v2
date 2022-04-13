@@ -35,6 +35,12 @@ class Guild extends Model
         $obj = new Guild($result);
         return $obj;
     }
+
+    static function create($id, $prefix)
+    {
+        return static::insert(array('id' => $id, 'prefix' => $prefix));
+    }
+
 }
 
 

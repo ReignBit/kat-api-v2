@@ -3,7 +3,7 @@
 class BaseController
 {
     public static $endpoints = array();
-    static function handleRequest($args)
+    static function handleRequest($method, $args)
     {
         foreach (static::$endpoints as $pattern => $callback) {
             if (preg_match($pattern, $args))

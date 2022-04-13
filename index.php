@@ -1,6 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+define("INC_CONFIG", true);
 include_once("config.php");
 
 include_once("routes.php");
@@ -15,7 +17,7 @@ if (count($args) >= 1)
     foreach ($routes as $route => $callback) {
         if ($args[0] == $route)
         {
-            echo json_encode(call_user_func(array($callback, "handleRequest"), $_REQUEST['q']));
+            echo json_encode(call_user_func(array($callback, "handleRequest"),$_SERVER['REQUEST_METHOD'], $_REQUEST['q']));
             return;
         }
     }

@@ -85,5 +85,20 @@ class Model
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    static function insert($pairs)
+    {
+        $paren_str = "";
+        $value_str = "";
+        foreach($pairs as $colName => $value)
+        {
+            $paren_str .= "`$colName`,";
+            $value_str .= "'$value'";
+        }
+        
+        return "INSERT INTO `". static::$tableName ."` (". $paren_str .") VALUES (". $value_str .");";
+        // $stmt = static::$conn->prepare("INSERT INTO `". static::$tableName ."` (". $paren_str .") VALUES (". $value_str .");");
+
+    }
 }
 ?>
