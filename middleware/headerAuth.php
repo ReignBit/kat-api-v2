@@ -6,12 +6,14 @@ class HeaderAuthMiddleware extends BaseMiddleware
 {
     static function handle($ctx)
     {
-
-        if (array_key_exists($_SERVER['PHP_AUTH_USER'], AUTH_USER))
+        if (isset($_SERVER['PHP_AUTH_USER']))
         {
-            if ($_SERVER['PHP_AUTH_PW'] == AUTH_USER[$_SERVER['PHP_AUTH_USER']])
+            if (array_key_exists($_SERVER['PHP_AUTH_USER'], AUTH_USER))
             {
-                return static::next($ctx);
+                if ($_SERVER['PHP_AUTH_PW'] == AUTH_USER[$_SERVER['PHP_AUTH_USER']])
+                {
+                    return static::next($ctx);
+                }
             }
         }
         return error_401();

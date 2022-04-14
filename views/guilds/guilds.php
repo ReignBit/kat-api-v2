@@ -7,7 +7,7 @@ class GuildsView extends View
 {
     static function get($ctx)
     {
-        return Guild::all();
+        return buildResponse(Guild::all());
     }
 
     static function post($ctx)
@@ -16,12 +16,18 @@ class GuildsView extends View
         {
             if (Guild::create( $ctx->post['id'], $ctx->post['prefix']))
             {
-                http_response_code(201);
-                return Guild::get($ctx->post['id']);
-            }
 
-            http_response_code(422);
-            return Guild::get($ctx->post['id']);
+                return buildResponse(Guild::get($ctx->post['id']), "Resource created successfully", 201);
+            }
+            if (Guild::get($ctx->post['id']))
+            {
+                return buildResponse(Guild::get($ctx->post['id']), "Resource already exists", 422);
+            }
+            else
+            {
+                // Invalid id
+                return error_400();
+            }
 
         }
         return error_400();

@@ -8,7 +8,15 @@ class GuildView extends View
 
     static function get($ctx, $gid)
     {
-        return Guild::get($gid);
+        $result = Guild::get($gid);
+        if ($result)
+        {
+            return buildResponse(Guild::get($gid));
+        }
+        else
+        {
+            return error_404();
+        }
     }
 }
 
