@@ -134,7 +134,7 @@ If checks fail, or the middleware wants to abort the request, it can return one 
 ```php
 return array("msg" => "aborting at middleware ExampleMiddleware");
 ```
-
+---
 ### URL Parameters
 To use url parameters, create a new endpoint with the regex of the parameter you wish to target. For example, to catch a 5-digit integer you can use:
 ```php
