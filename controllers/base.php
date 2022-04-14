@@ -48,8 +48,17 @@ class BaseController
                 // $method    : HTTP Method
                 // $url_params: regex'd variables from url
                 $ctx = new Context($controller, $callback, $method, $url_params, static::$middleware); 
-
-                return call_user_func(array(static::$middleware[0], "handleMiddlewareRequest"), $ctx);  
+                
+                $ctx->middleware[] = "BaseMiddleware";
+                return call_user_func(array($ctx->middleware[0], "handleMiddlewareRequest"), $ctx); 
+                // if (count($ctx->middleware) > 0)
+                // {
+                //     return call_user_func(array($ctx->middleware[0], "handleMiddlewareRequest"), $ctx);  
+                // }
+                // else
+                // {
+                //     return call_user_func(array($callback, "handle"), $ctx);
+                // }
             }
         }
 

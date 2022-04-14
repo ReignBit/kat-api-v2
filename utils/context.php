@@ -33,6 +33,8 @@ class Context
         $this->params = $p;
         $this->middleware = $mi;
         $this->processedMiddleware = array();
+
+        $this->post = array();  // post data populated - mainly populated from JsonPostMiddleware. TODO: add generic post data here.
     }
 }
 

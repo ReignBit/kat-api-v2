@@ -11,7 +11,6 @@ class BaseMiddleware
         {
             return $result;
         }
-        return static::next($ctx);
     }
 
     static function handle($ctx)
@@ -21,6 +20,7 @@ class BaseMiddleware
 
         // return static::next($ctx) when middleware checks have passed,
         // return an error/response when middleware has failed checks.
+        return static::next($ctx);
     }
 
     static function next($ctx)

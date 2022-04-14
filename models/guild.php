@@ -28,7 +28,8 @@ class Guild extends Model
 
     static function create($id, $prefix)
     {
-        return static::insert(array('id' => $id, 'prefix' => $prefix));
+        $result = static::insert(array('id' => $id, 'prefix' => $prefix));
+        return $result;
     }
 
 }

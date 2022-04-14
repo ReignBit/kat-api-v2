@@ -75,6 +75,7 @@ class Model
 
     static function fetchMultiple($pairs)
     {
+        static::ensureConn();
         $str = "";
         foreach ($pairs as $columnName => $value) {
             $str .= " AND $columnName = $value";
@@ -88,17 +89,29 @@ class Model
 
     static function insert($pairs)
     {
+        static::ensureConn();
         $paren_str = "";
         $value_str = "";
+        $values = array();
         foreach($pairs as $colName => $value)
         {
             $paren_str .= "`$colName`,";
-            $value_str .= "'$value'";
+            $value_str .= " ?,";
+            $values[] = $value;
         }
         
-        return "INSERT INTO `". static::$tableName ."` (". $paren_str .") VALUES (". $value_str .");";
-        // $stmt = static::$conn->prepare("INSERT INTO `". static::$tableName ."` (". $paren_str .") VALUES (". $value_str .");");
-
+        // return "INSERT INTO `". static::$tableName ."` (". $paren_str .") VALUES (". $value_str .");";
+        try
+        {
+            $stmt = static::$conn->prepare("INSERT INTO `". static::$tableName ."` (". rtrim($paren_str, ',') .") VALUES (". rtrim($value_str, ',') .");");
+            $stmt->execute($values);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return true;
+        }
+        catch (\PDOException $e)
+        {
+            return false;
+        }
     }
 }
 ?>
