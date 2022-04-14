@@ -156,3 +156,5 @@ and in the view:
 ```php
 static function get($ctx, $url_param_1, $url_param_2)
 ```
+
+> NOTE: Do be careful and ensure any greedy routes are at the end of the list, otherwise valid routes could be eaten by the greedy endpoint!
