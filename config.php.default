@@ -1,7 +1,11 @@
 <?php
+if (!defined("INC_CONFIG"))
+{
+    die("You never should have come here!");
+}
 
-define('AUTH_USER', 'xxx');
-define("AUTH_PASS", "xxx");
+// Change these, add more pairs to add valid credentials.
+define('AUTH_USER', array('dev' => 'blowfish'));
 
 define("DB_HOSTNAME", "xxx");
 define("DB_USERNAME", "xxx");

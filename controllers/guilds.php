@@ -7,7 +7,7 @@ include_once("controllers/base.php");
 
 
 
-# include_once("middleware/headerAuth.php");
+include_once("middleware/headerAuth.php");
 include_once("middleware/jsonPost.php");
 
 class GuildController extends BaseController
@@ -21,6 +21,7 @@ class GuildController extends BaseController
         );
 
     public static $middleware = array(
+        "HeaderAuthMiddleware",
         "JsonPostMiddleware",
     );
 
