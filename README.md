@@ -134,3 +134,25 @@ If checks fail, or the middleware wants to abort the request, it can return one 
 ```php
 return array("msg" => "aborting at middleware ExampleMiddleware");
 ```
+
+### URL Parameters
+To use url parameters, create a new endpoint with the regex of the parameter you wish to target. For example, to catch a 5-digit integer you can use:
+```php
+public static $endpoints = array(
+    "/guilds\/\d{5}$/" => "View",   // Will match /guilds/12345, won't catch /guilds/123456
+);
+```
+Then, in your views simply add a parameter in the function definition:
+```php
+static function get($ctx, $integer)
+```
+to add more url params simply repeat:
+```php
+public static $endpoints = array(
+    "/guilds\/\d{5}\/[a-z]{4}$/" => "View"       // Will catch /guilds/12345/abcd
+);
+```
+and in the view:
+```php
+static function get($ctx, $url_param_1, $url_param_2)
+```
