@@ -136,6 +136,7 @@ return array("msg" => "aborting at middleware ExampleMiddleware");
 ```
 ---
 ### URL Parameters
+> NOTE: Do be careful and ensure any greedy routes are at the end of the list, otherwise valid routes could be eaten by the greedy endpoint!
 To use url parameters, create a new endpoint with the regex of the parameter you wish to target. For example, to catch a 5-digit integer you can use:
 ```php
 public static $endpoints = array(
@@ -156,5 +157,3 @@ and in the view:
 ```php
 static function get($ctx, $url_param_1, $url_param_2)
 ```
-
-> NOTE: Do be careful and ensure any greedy routes are at the end of the list, otherwise valid routes could be eaten by the greedy endpoint!
