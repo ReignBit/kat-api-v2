@@ -1,4 +1,8 @@
-<?php
+# Controller
+Responsible for providing routes to endpoints.
+
+Example:
+```php
 include_once("views/view.php");
 include_once("controllers/controller.php");
 include_once("middleware/middleware.php");
@@ -18,4 +22,4 @@ class ExampleController extends Controller
         "Middleware"
     );
 }
-?>
+```

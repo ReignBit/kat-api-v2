@@ -1,8 +1,8 @@
 <?php
-include_once("middleware/base.php");
+include_once("middleware/middleware.php");
 include_once("utils/errors.php");
 
-class HeaderAuthMiddleware extends BaseMiddleware
+class BasicAuthMiddleware extends Middleware
 {
     static function handle($ctx)
     {

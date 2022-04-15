@@ -1,16 +1,16 @@
 <?php
 include_once("utils/context.php");
 
-class BaseMiddleware
+class Middleware
 {
     static function handleMiddlewareRequest($ctx)
     {
-        $start = date_timestamp_get(date_create());
-        $result = static::handle($ctx);
-        if ($result)
+
+        if ($result = static::handle($ctx))
         {
             return $result;
         }
+        return static::next($ctx);
     }
 
     static function handle($ctx)

@@ -18,6 +18,20 @@ class GuildView extends View
             return error_404();
         }
     }
+
+    static function post($ctx, $gid)
+    {
+        $result = Guild::get($gid);
+        if ($result)
+        {
+            $result = $result->edit($ctx->data);
+            if ($result->save())
+            {
+                return buildResponse($result);
+            }
+            return error_400();
+        }
+    }
 }
 
 ?>

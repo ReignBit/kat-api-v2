@@ -65,6 +65,10 @@ if (count($args) >= 1)
             {
                 echo call_user_func(array($callback, "handleRequest"),$_SERVER['REQUEST_METHOD'], $_REQUEST['q'], $callback);
             }
+            catch(\PDOException $e)
+            {
+                echo error_503();
+            }
             catch(\Exception $e)
             {
                 if (defined("DEBUG"))

@@ -3,11 +3,11 @@ Complete rewrite of the v1 api, built in PHP and RESTful principles.
 Uses routing and controllers to help modularize the code.
 
 ## TODO
- - Implement Auth
+ - ~~Implement Auth~~
  - FetchOr404 / Error handling in general
  - Permission endpoints
- - Allow creation/deletion/modification of data (currently only GET)
- - Views / Multiple methods [x]
+ - ~~Allow creation/deletion/modification of data (currently only GET)~~
+ - ~~Views / Multiple methods~~
 
 ---
 

@@ -1,10 +1,10 @@
 <?php
 include_once("utils/context.php");
-include_once("middleware/base.php");
+include_once("middleware/middleware.php");
 
 include_once("utils/errors.php");
 
-class BaseController
+class Controller
 {
     /*
         endpoints:
@@ -49,16 +49,8 @@ class BaseController
                 // $url_params: regex'd variables from url
                 $ctx = new Context($controller, $callback, $method, $url_params, static::$middleware); 
                 
-                $ctx->middleware[] = "BaseMiddleware";
+                $ctx->middleware[] = "Middleware";
                 return call_user_func(array($ctx->middleware[0], "handleMiddlewareRequest"), $ctx); 
-                // if (count($ctx->middleware) > 0)
-                // {
-                //     return call_user_func(array($ctx->middleware[0], "handleMiddlewareRequest"), $ctx);  
-                // }
-                // else
-                // {
-                //     return call_user_func(array($callback, "handle"), $ctx);
-                // }
             }
         }
 

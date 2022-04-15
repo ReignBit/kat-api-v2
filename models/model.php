@@ -31,6 +31,7 @@ class Model
             }
             catch (PDOException $e)
             {
+                
                 throw new PDOException($e->getMessage(), (int)$e->getCode());
             }
         }
@@ -112,6 +113,34 @@ class Model
         {
             return false;
         }
+    }
+
+    static function update($whereCol, $where, $pairs)
+    {
+        static::ensureConn();
+        $updateString = "";
+        $values = array();
+        foreach($pairs as $col => $val)
+        {
+            $updateString .= "`$col` = ?,";
+            $values[] = $val;
+        }
+
+        try
+        {
+            //echo "UPDATE IGNORE `". static::$tableName ."` SET " . rtrim($updateString, ',') . " WHERE `". static::$tableName ."`.`$whereCol` = ?;";
+            $stmt = static::$conn->prepare("UPDATE IGNORE `". static::$tableName ."` SET " . rtrim($updateString, ',') . " WHERE `". static::$tableName ."`.`$whereCol` = ?;");
+            
+            $values[] = $where;
+            $stmt->execute($values);
+            return true;
+        }
+        catch(\PDOException $e)
+        {
+            echo $e;
+            return false;
+        }
+
     }
 }
 ?>

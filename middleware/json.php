@@ -1,8 +1,8 @@
 <?php
-include_once("middleware/base.php");
+include_once("middleware/middleware.php");
 include_once("utils/errors.php");
 
-class JsonPostMiddleware extends BaseMiddleware
+class JsonMiddleware extends Middleware
 {
     /*
         JsonPostMiddleware
@@ -13,20 +13,19 @@ class JsonPostMiddleware extends BaseMiddleware
     */
     static function handle($ctx)
     {
-        if ($ctx->method == "POST")
+        if ($ctx->method != "GET")
         {
             try
             {
-                $ctx->post = json_decode(file_get_contents("php://input"), true, 512, JSON_THROW_ON_ERROR);
+                $ctx->data = json_decode(file_get_contents("php://input"), true, 512, JSON_THROW_ON_ERROR);
                 return static::next($ctx);
             }
             catch (\JsonException $e)
             {
-                echo $e;
                 return error_400();
             }
         }
-        // Method is not POST, so we dont need to worry.
+        // Method is GET, so we dont need to worry.
         return static::next($ctx);
     }
 }

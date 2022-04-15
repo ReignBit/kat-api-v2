@@ -5,17 +5,17 @@ include_once("middleware/middleware.php");
 
 include_once("views/example.php");
 
-class ExampleController extends Controller
+class SnowflakeController extends Controller
 {
     // Mapping of url => view (url is regex pattern)
     public static $endpoints = array(
-            "/example$/" => "ExampleView"
+            "/snowflakes$/" => "SnowflakesView"
         );
 
     public static $middleware = array(
         // Any middlewares that should be processed on views
         // in this controller should be added here.
-        "Middleware"
+        "HeaderAuth"
     );
 }
 ?>

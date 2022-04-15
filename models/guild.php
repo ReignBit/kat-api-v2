@@ -5,8 +5,8 @@ class Guild extends Model
 {
     protected static $tableName = "Guild";
 
-    public $id = 0;
-    public $prefix = "";
+    public $id;
+    public $prefix;
 
     function __construct($sql)
     {
@@ -14,6 +14,17 @@ class Guild extends Model
         $this->id = $sql['id'];
         $this->prefix = $sql['prefix'];
         parent::__construct();
+    }
+
+    function edit($data)
+    {
+        if(isset($data['prefix'])) { $this->prefix = $data['prefix']; }
+        return $this;
+    }
+
+    function save()
+    {
+        return static::update("id", $this->id, array("prefix" => $this->prefix));
     }
 
     static function all()

@@ -1,13 +1,13 @@
 <?php
 include_once("views/view.php");
 
-include_once("models/guild.php");
+include_once("models/member.php");
 
-class GuildsView extends View
+class MemberView extends View
 {
     static function get($ctx)
     {
-        return buildResponse(Guild::all());
+        return buildResponse(Member::all());
     }
 
     static function post($ctx)

@@ -25,4 +25,9 @@ function error_500()
     return buildResponse(array(), "An error occurred and the request was not completed.", 500);
 }
 
+function error_503()
+{
+    return buildResponse(array(), "The server was unable to establish a connection with a required service.", 503);
+}
+
 ?>

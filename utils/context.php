@@ -34,7 +34,16 @@ class Context
         $this->middleware = $mi;
         $this->processedMiddleware = array();
 
-        $this->post = array();  // post data populated - mainly populated from JsonPostMiddleware. TODO: add generic post data here.
+        $this->data = array();  // post data populated - mainly populated from JsonMiddleware. TODO: add generic post data here.
+    }
+
+    public function getKey($key, $default=null)
+    {
+        if (isset($this->data[$key]))
+        {
+            return $this->data[$key];
+        }
+        return $default;
     }
 }
 
